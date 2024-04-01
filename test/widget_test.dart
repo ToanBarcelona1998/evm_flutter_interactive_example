@@ -11,5 +11,5 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:trust_wallet_core_example/main.dart';
 
 void main() {
-  
+
 }
