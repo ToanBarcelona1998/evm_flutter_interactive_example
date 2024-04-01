@@ -95,13 +95,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Input your phrase
   final String phrase = '';
+  //https://ethereum-sepolia-rpc.publicnode.com
+  // Input your rpc. Or use ethereum sepolia
+  final String rpc = 'https://ethereum-sepolia-rpc.publicnode.com';
 
   @override
   void initState() {
-    //https://ethereum-sepolia-rpc.publicnode.com
-    //https://polygon-mumbai-bor-rpc.publicnode.com
     _web3client = Web3Client(
-      'https://ethereum-sepolia-rpc.publicnode.com',
+      rpc,
       Client(),
     );
     super.initState();
@@ -141,8 +142,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
       print('ethereum chain Id = $chainId');
 
+      // Input your recipient address
+      const String recipientAddress = '';
+
       Ethereum.SigningInput signingInput = Ethereum.SigningInput(
-        toAddress: '0xeC552cFb5Ad7d7f8FB6aA5D832487Fcf1C2f04EB',
+        toAddress: recipientAddress,
         privateKey: hdWallet.getKeyForCoin(coinType).data(),
         chainId: chainId.toUin8List(),
         gasPrice: BigInt.parse('d693a400', radix: 16).toUin8List(),
@@ -193,9 +197,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
       print('ethereum chain Id = $chainId');
 
-      //0xC2CF0ec1D7B564bCAd775DEaF6a0882065b2eaCe
+      // Input your recipient address
+      const String recipientAddress = '';
+      // Input your contract address
+      const String contractAddress = '';
       Ethereum.SigningInput signingInput = Ethereum.SigningInput(
-        toAddress: '0xC2CF0ec1D7B564bCAd775DEaF6a0882065b2eaCe',
+        toAddress: contractAddress,
         privateKey:
             hdWallet.getKeyForCoin(TWCoinType.TWCoinTypeEthereum).data(),
         chainId: chainId.toUin8List(),
@@ -207,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
               from: hdWallet.getAddressForCoin(
                 coinType,
               ),
-              to: '0xeC552cFb5Ad7d7f8FB6aA5D832487Fcf1C2f04EB',
+              to: recipientAddress,
               tokenId: BigInt.from(143).toUin8List(),
             ),
             contractGeneric: Ethereum.Transaction_ContractGeneric()),
