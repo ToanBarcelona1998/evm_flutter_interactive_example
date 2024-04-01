@@ -93,6 +93,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final int coinType = TWCoinType.TWCoinTypeEthereum;
 
+  // Input your phrase
+  final String phrase = '';
+
   @override
   void initState() {
     //https://ethereum-sepolia-rpc.publicnode.com
@@ -106,7 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _testCreateEthereumWallet() async {
     final HDWallet hdWallet = HDWallet.createWithMnemonic(
-        'inch device rain tired suffer voyage release stick ostrich vacant surface equal');
+      phrase,
+    );
 
     print(
       hdWallet.mnemonic(),
@@ -130,7 +134,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void _sendTransaction() async {
     try {
       final HDWallet hdWallet = HDWallet.createWithMnemonic(
-          'inch device rain tired suffer voyage release stick ostrich vacant surface equal');
+        phrase,
+      );
 
       final chainId = await _web3client.getChainId();
 
@@ -138,8 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       Ethereum.SigningInput signingInput = Ethereum.SigningInput(
         toAddress: '0xeC552cFb5Ad7d7f8FB6aA5D832487Fcf1C2f04EB',
-        privateKey:
-            hdWallet.getKeyForCoin(coinType).data(),
+        privateKey: hdWallet.getKeyForCoin(coinType).data(),
         chainId: chainId.toUin8List(),
         gasPrice: BigInt.parse('d693a400', radix: 16).toUin8List(),
         gasLimit: BigInt.parse('5208', radix: 16).toUin8List(),
@@ -175,7 +179,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void _sendERC721() async {
     try {
       final HDWallet hdWallet = HDWallet.createWithMnemonic(
-          'inch device rain tired suffer voyage release stick ostrich vacant surface equal');
+        phrase,
+      );
 
       final chainId = await _web3client.getChainId();
 
@@ -261,6 +266,9 @@ class _MyHomePageState extends State<MyHomePage> {
             InkWell(
               onTap: _sendERC721,
               child: const Text('ERC721 transfer'),
+            ),
+            const SizedBox(
+              height: 40,
             ),
             InkWell(
               onTap: _sendTransaction,
